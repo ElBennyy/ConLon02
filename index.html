@@ -61,8 +61,8 @@
 <body>
     <div class="container">
         <img src="imagenes/Logo_iMas.png" alt="Logotipo" class="logo">
-        <h1>Convertidor de Medidas de Longitud</h1>
-        <!-- <p>Convierte fácilmente entre millas, yardas, pies, pulgadas, kilómetros y metros.</p> -->
+        <h1>Conversor de Medidas de Longitud</h1>
+        <!--<p>Convierte fácilmente entre millas, yardas, pies, pulgadas, kilómetros y metros.</p>-->
         <input type="number" id="inputValue" placeholder="Ingrese un valor" />
         <select id="fromUnit">
             <option value="mile">Milla</option>
@@ -84,10 +84,10 @@
         <button onclick="convert()">Convertir</button>
         <button class="clear-btn" onclick="clearFields()">Limpiar</button>
         <h2 id="result"></h2>
+        <audio id="successSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
     </div>
 
     <script>
-        // Factores de conversión a metros
         const conversionFactors = {
             mile: 1609.34,
             yard: 0.9144,
@@ -102,16 +102,18 @@
             let fromUnit = document.getElementById("fromUnit").value;
             let toUnit = document.getElementById("toUnit").value;
             let resultField = document.getElementById("result");
+            let sound = document.getElementById("successSound");
 
             if (isNaN(inputValue)) {
                 resultField.textContent = "Por favor, ingrese un número válido.";
                 return;
             }
 
-            // Convertir a metros y luego a la unidad de destino
             let valueInMeters = inputValue * conversionFactors[fromUnit];
             let convertedValue = valueInMeters / conversionFactors[toUnit];
             resultField.textContent = `${inputValue} ${fromUnit} equivale a ${convertedValue.toFixed(4)} ${toUnit}`;
+            
+            sound.play();
         }
 
         function clearFields() {
